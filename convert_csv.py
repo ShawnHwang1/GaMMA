@@ -7,15 +7,13 @@ def convert_csv_to_pickdf(input_file, output_file):
     print(df)
 
     picks_df = pd.DataFrame(columns=["id", "timestamp", "prob", "type"])
-    
     # Initialize counters and checks
     p_check = 0
     s_check = 0
     event_id = 0
 
     for index, row in df.iterrows():
-        # Check for p-arrival time
-        if (row['p_arrival_time'] != 0 and p_check == 0):
+        if (row['p_arrival_time'] != 0 and p_check == 0): # Check for p-arrival time
             picks_df = picks_df.append({
                 "id": event_id,
                 "timestamp": row["p_arrival_time"],
@@ -24,8 +22,7 @@ def convert_csv_to_pickdf(input_file, output_file):
             }, ignore_index=True)
             p_check += 1
             event_id += 1
-        # Check for s-arrival time
-        elif (row['s_arrival_time'] != 0 and s_check == 0):
+        elif (row['s_arrival_time'] != 0 and s_check == 0): # Check for s-arrival time
             picks_df = picks_df.append({
                 "id": event_id,
                 "timestamp": row["s_arrival_time"],
